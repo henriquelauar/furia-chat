@@ -1,0 +1,17 @@
+import { ReactNode } from "react";
+import { Sidebar } from "../components/Sidebar";
+import Header from "../components/Header";
+
+export default function Layout({ children }: { children: ReactNode }) {
+  return (
+    <div className="d-flex flex-column min-vh-100">
+      <Header />
+      <div className="d-flex flex-grow-1 flex-column flex-md-row">
+        <Sidebar />
+        <main className="flex-grow-1 d-flex justify-content-center">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
