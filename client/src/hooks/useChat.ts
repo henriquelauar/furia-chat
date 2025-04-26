@@ -81,7 +81,7 @@ export function useChat() {
     endRef,
   };
 
-};
+  };
 
 return { messages, sendMessage, endRef, setMessages, removeMessage };
 }

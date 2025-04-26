@@ -1,20 +1,19 @@
 import { Form } from "react-bootstrap";
 import { useState } from "react";
 import { useChat } from "../hooks/useChat";
-import { useUsername } from "../hooks/useUsername";
 import { usePanteraResponse } from "../hooks/usePantera";
 import panteraLogo from '../assets/furia-logo.jpg'
 import avatar from '../assets/avatar.jpg'
+import { useUsername } from "../hooks/useUsername";
 import './chat.css'
-
 
 export default function Chat() {
   const { messages, sendMessage, endRef, removeMessage } = useChat();
   const [input, setInput] = useState("");
   const [deletingIds, setDeletingIds] = useState<string[]>([]);
 
-  const username = useUsername();
   const { response: getPanteraResponse } = usePanteraResponse();
+  const username = useUsername();
 
   if (!username) {
     return null;
@@ -34,14 +33,6 @@ export default function Chat() {
     }
   };
 
-  const handlePantera = async () => {
-    const question = "Pantera, quando é o próximo jogo?";
-    await sendMessage(question, username);
-  
-    const reply = await getPanteraResponse(question);
-    await sendMessage(reply, "Pantera");
-  };  
-
   const handleDeleteMessage = async (id: string) => {
     const confirmed = window.confirm("Tem certeza que quer excluir esta mensagem?");
     if (!confirmed) return;
@@ -54,24 +45,8 @@ export default function Chat() {
     }, 500); // tempo para o fade-out rodar (meio segundo)
   };
   
-
   return (
     <div className="d-flex flex-column w-100 overflow-hidden" style={{ backgroundColor: "#f8f9fa",height: "calc(100vh - 74px)" }}>
-
-      {/* Header */}
-      <div className="text-center py-3 border-bottom">
-        <h5 className="text-black fw-lighter mb-1">CHAT FURIA</h5>
-        <small className="text-light-emphasis fw-semibold">
-          Fale com a Pantera Oficial
-        </small>
-      </div>
-
-      {/* Botão chamar Pantera */}
-      <div className="text-center py-2 border-bottom">
-        <button className="btn btn-sm btn-dark" onClick={handlePantera}>
-          Chamar a Pantera
-        </button>
-      </div>
 
       {/* Mensagens */}
       <div className="flex-grow-1 overflow-auto p-3" style={{ minHeight: 0 }}>
@@ -82,7 +57,7 @@ export default function Chat() {
           return (
             <div
               key={msg.id}
-              className={`mb-3 d-flex ${isUser ? "justify-content-end" : "justify-content-start"} ${deletingIds.includes(msg.id) ? "fade-out" : ""}`}
+              className={`mb-2 d-flex ${isUser ? "justify-content-end" : "justify-content-start"} ${deletingIds.includes(msg.id) ? "fade-out" : ""}`}
             >
               <div className="d-flex align-items-center" style={{ maxWidth: "75%" }}>
                 {!isUser && isBot && (
@@ -97,10 +72,11 @@ export default function Chat() {
                   style={{
                     backgroundColor: "#000000d4",
                     borderRadius: "1rem",
-                    wordBreak: "break-word"
+                    wordBreak: "break-word",
+                    minWidth: '230px'
                   }}
                 >
-                  <div className="d-flex justify-content-between mb-3">
+                  <div className="d-flex justify-content-between mb-2">
                     <small className="d-block fw-bold text-uppercase mb-1">{msg.sender}</small>
                     {isUser && (
                       <i

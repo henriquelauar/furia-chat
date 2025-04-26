@@ -1,61 +1,53 @@
 import { FC } from "react";
+import { logout } from "../services/authService";
+import { useNavigate } from "react-router";
 
 export const Sidebar: FC = () => {
-  const stats = [
-    { label: "World Ranking", value: "#11" },
-    { label: "Win Rate", value: "63%" },
-    { label: "Torneios Vencidos", value: "8" },
-    { label: "Streak Atual", value: "3 Vitórias" },
-  ];
+  const navigate = useNavigate();
 
-  const matches = [
-    { title: '23/04 - IEM Katowice 2025', team: 'FURIA vs Team Liquid' },
-    { title: '25/04 - ESL Pro League', team: 'FURIA vs NAVI' },
-  ];
-
+  const handleLogout = async () => {
+    const confirmed = window.confirm("Tem certeza que deseja sair?");
+    if (!confirmed) return;
+    logout();
+    navigate('/')
+  }
+  
   return (
     <div
       className="d-none d-md-flex flex-column text-white position-sticky bg-white top-0 border-top shadow-sm border"
       style={{
-        width: "435px",
-        minWidth: "435px",
+        width: "350px",
+        minWidth: "350px",
         padding: "2rem 1.5rem",
         zIndex: 1000,
         overflowY: 'auto'
       }}
     >
       
-      {/* Stats */}
-      <div className="mb-4 text-center mt-5">
-        <h5 className="fw-lighter mb-3 text-uppercase text-black">
-          <i className="ri-bar-chart-line me-2"></i>Stats
-        </h5>
+      {/* HEADER */}
+      <div className="text-left">
         <div className="row g-3">
-          {stats.map((stat, idx) => (
-            <div className="col-6" key={idx}>
+            <div className="col-12">
               <div className="p-3 rounded shadow-sm h-100 d-flex flex-column justify-content-center" style={{ borderLeft: "4px solid #000000", backgroundColor: "#000000d4" }}>
-                <small className="text-uppercase" style={{ fontSize: "0.75rem" }}>{stat.label}</small>
-                <strong className="">{stat.value}</strong>
+                <div className="d-flex align-items-center justify-content-between">
+                  <small className="text-uppercase" style={{ fontSize: "0.75rem" }}>USERNAME</small>
+                  <button className="btn btn-sm btn-outline-danger" onClick={ () => handleLogout() }>SAIR</button>
+                </div>
+                <strong className="">pedromario</strong>
               </div>
             </div>
-          ))}
         </div>
       </div>
 
-      {/* Próximas partidas */}
-      <div className="mb-4 text-center mt-5">
-        <h5 className="fw-lighter mb-3 text-uppercase text-black">
-          <i className="ri-calendar-event-line me-2"></i>Próximas Partidas
-        </h5>
+      {/* DIRECT MESSAGES */}
+      <div className="mb-4 text-left mt-5">
+        <h5 className="fw-lighter mb-3 text-black" style={{fontSize: '1rem'}}>Direct Messages</h5>
         <div className="row g-3">
-          {matches.map((match, idx) => (
-            <div className="col-12" key={idx}>
-              <div className="p-3 rounded shadow-sm h-100 d-flex flex-column justify-content-center" style={{ borderLeft: "4px solid #000000", backgroundColor: "#000000d4" }}>
-                <small className="text-uppercase">{match.title}</small>
-                <strong className="">{match.team}</strong>
-              </div>
+            <div className="col-12">
+              <button className="p-3 rounded shadow-sm h-100 d-flex flex-column justify-content-center btn btn-dark w-100" onClick={() => navigate('/chat')}>
+                Chat Principal
+              </button>
             </div>
-          ))}
         </div>
       </div>
 

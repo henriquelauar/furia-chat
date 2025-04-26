@@ -1,23 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import { supabase } from '../supabase/supabaseClient';
 
 export function useUsername() {
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    const stored = localStorage.getItem("furia-username");
-    if (stored) {
-      setUsername(stored);
-    } else {
-      const name = prompt("Escolha um nome para participar do chat:")?.trim();
-      if (name) {
-        localStorage.setItem("furia-username", name);
-        setUsername(name);
-      } else {
-        const fallback = `Fã#${Math.floor(Math.random() * 10000)}`;
-        localStorage.setItem("furia-username", fallback);
-        setUsername(fallback);
+    const fetchUsername = async () => {
+      const user = (await supabase.auth.getUser()).data.user;
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from('profiles') 
+        .select('username')
+        .eq('id', user.id)
+        .single();
+
+      if (error) {
+        console.error('Erro buscando username:', error.message);
+        return;
       }
-    }
+
+      if (data) {
+        setUsername(data.username);
+      }
+    };
+
+    fetchUsername();
   }, []);
 
   return username;

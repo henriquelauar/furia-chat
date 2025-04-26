@@ -37,7 +37,7 @@ export function usePanteraResponse() {
       } else {
         console.error("Erro ao chamar a IA:", error);
       }
-      return "Desculpe, não consegui responder agora. Tente novamente mais tarde. 🐾";
+      return "Desculpe, não consegui responder agora. Tente novamente mais tarde.";
     }
   }, []);
 
