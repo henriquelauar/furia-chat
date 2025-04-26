@@ -56,7 +56,7 @@ export default function Chat() {
   
 
   return (
-    <div className="d-flex flex-column w-100 overflow-hidden" style={{ backgroundColor: "#f8f9fa",height: "calc(100vh - 66px)" }}>
+    <div className="d-flex flex-column w-100 overflow-hidden" style={{ backgroundColor: "#f8f9fa",height: "calc(100vh - 74px)" }}>
 
       {/* Header */}
       <div className="text-center py-3 border-bottom">
@@ -84,7 +84,7 @@ export default function Chat() {
               key={msg.id}
               className={`mb-3 d-flex ${isUser ? "justify-content-end" : "justify-content-start"} ${deletingIds.includes(msg.id) ? "fade-out" : ""}`}
             >
-              <div className="d-flex align-items-center" style={{ maxWidth: "50%" }}>
+              <div className="d-flex align-items-center" style={{ maxWidth: "75%" }}>
                 {!isUser && isBot && (
                   <img src={panteraLogo} alt={msg.sender} width="36" height="36" className="rounded-circle me-2" />
                 )}
@@ -126,7 +126,7 @@ export default function Chat() {
 
       {/* Input */}
       <Form
-        className="d-flex gap-1 flex-column flex-sm-row p-3 border-top"
+        className="d-flex gap-2 flex-sm-row flex-sm-row align-items-center p-3 border-top"
         onSubmit={handleSubmit}
       >
         <Form.Control
@@ -135,12 +135,25 @@ export default function Chat() {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Digite sua mensagem..."
           className="text-white flex-grow-1 chat-input"
-          style={{ backgroundColor: "#000000d4" }}
+          style={{
+            backgroundColor: "#000000d4",
+            fontSize: "0.9rem",
+            padding: "0.5rem 0.75rem",
+          }}
         />
-        <button type="submit" className="btn" style={{ backgroundColor: "#000000d4" }}>
+        <button
+          type="submit"
+          className="btn d-flex align-items-center justify-content-center"
+          style={{
+            backgroundColor: "#000000d4",
+            width: "42px",
+            height: "42px",
+          }}
+        >
           <i className="ri-send-plane-fill text-white" />
         </button>
       </Form>
+
     </div>
   );
 }
