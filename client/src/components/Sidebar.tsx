@@ -31,7 +31,7 @@ export const Sidebar: FC = () => {
         <div className="row g-3">
           {stats.map((stat, idx) => (
             <div className="col-6" key={idx}>
-              <div className="p-3 rounded shadow-sm h-100 d-flex flex-column justify-content-center bg-dark" style={{ borderLeft: "4px solid #000000" }}>
+              <div className="p-3 rounded shadow-sm h-100 d-flex flex-column justify-content-center" style={{ borderLeft: "4px solid #000000", backgroundColor: "#000000d4" }}>
                 <small className="text-uppercase" style={{ fontSize: "0.75rem" }}>{stat.label}</small>
                 <strong className="">{stat.value}</strong>
               </div>
@@ -48,7 +48,7 @@ export const Sidebar: FC = () => {
         <div className="row g-3">
           {matches.map((match, idx) => (
             <div className="col-12" key={idx}>
-              <div className="p-3 rounded shadow-sm h-100 d-flex flex-column justify-content-center bg-dark" style={{ borderLeft: "4px solid #000000" }}>
+              <div className="p-3 rounded shadow-sm h-100 d-flex flex-column justify-content-center" style={{ borderLeft: "4px solid #000000", backgroundColor: "#000000d4" }}>
                 <small className="text-uppercase">{match.title}</small>
                 <strong className="">{match.team}</strong>
               </div>
@@ -58,11 +58,11 @@ export const Sidebar: FC = () => {
       </div>
 
       {/* Redes Sociais */}
-      <div className="mt-auto">
+      <div className="mt-auto text-center">
         <h6 className="fw-light mb-3 text-uppercase text-black">
           Acompanhe
         </h6>
-        <div className="d-flex gap-3">
+        <div className="d-flex justify-content-center gap-3">
           <a href="https://twitter.com/furiagg" className="text-black">
             <i className="bi bi-twitter fs-5" />
           </a>

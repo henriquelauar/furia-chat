@@ -30,7 +30,7 @@ export default function Home() {
 
             {/* Botão para o Chat */}
             <button className="btn btn-dark" onClick={() => navigate("/chat")}>
-                Acessar o Chat
+                ACESSAR O CHAT
             </button>
         </div>
         <footer className="d-flex flex-column justify-content-between align-items-center px-4 py-3 mt-5 border border-top-1">
