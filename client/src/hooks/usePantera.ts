@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useCallback } from "react";
 
-const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+const apiKey = import.meta.env.VITE_OPENAI_API;
 
 export function usePanteraResponse() {
   const response = useCallback(async (message: string): Promise<string> => {
