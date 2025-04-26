@@ -1,0 +1,8 @@
+.chat-input::placeholder {
+  color: #ccc !important;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}

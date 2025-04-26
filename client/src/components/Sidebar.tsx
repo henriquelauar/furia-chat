@@ -18,8 +18,10 @@ export const Sidebar: FC = () => {
       className="d-none d-md-flex flex-column text-white position-sticky bg-white top-0 border-top shadow-sm border"
       style={{
         width: "435px",
+        minWidth: "435px",
         padding: "2rem 1.5rem",
         zIndex: 1000,
+        overflowY: 'auto'
       }}
     >
       

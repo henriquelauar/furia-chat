@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Header />
       <div className="d-flex flex-grow-1 flex-column flex-md-row">
         <Sidebar />
-        <main className="flex-grow-1 d-flex justify-content-center">
+        <main className="flex-grow-1">
           {children}
         </main>
       </div>

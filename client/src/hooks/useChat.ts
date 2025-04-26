@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { supabase } from "../supabase/supabaseClient";
 
 type Message = {
-  id: number;
+  id: string;
   content: string;
   sender: string;
   created_at: string;
@@ -56,5 +56,32 @@ export function useChat() {
     }
   };
 
-  return { messages, sendMessage, endRef };
+  async function removeMessage(id: string) {
+    try {
+      const { error } = await supabase
+        .from('messages') // nome da sua tabela
+        .delete()
+        .eq('id', id);
+  
+      if (error) {
+        throw new Error(error.message);
+      }
+  
+      // Depois de apagar do banco, remove do estado local
+      setMessages(prev => prev.filter(msg => msg.id !== id));
+    } catch (error) {
+      console.error('Erro ao deletar mensagem:', error);
+      alert('Erro ao deletar mensagem. Tente novamente.');
+  };
+
+  return {
+    messages,
+    sendMessage,
+    removeMessage,
+    endRef,
+  };
+
+};
+
+return { messages, sendMessage, endRef, setMessages, removeMessage };
 }
