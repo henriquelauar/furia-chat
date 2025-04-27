@@ -1,10 +1,12 @@
-import Chat from '../components/Chat';
-import AppLayout from '../components/AppLayout';
-import { useChat } from "../hooks/useChat";
+import { useParams } from "react-router-dom";
+import { usePrivateChat } from "../hooks/usePrivateChat";
 import { useUsername } from "../hooks/useUsername";
+import AppLayout from "../components/AppLayout";
+import Chat from "../components/Chat";
 
-export default function ChatPage() {
-  const { messages, sendMessage, removeMessage, endRef } = useChat();
+export default function PrivateChatPage() {
+  const { chatId } = useParams<{ chatId: string }>();
+  const { messages, sendMessage, removeMessage, endRef } = usePrivateChat(chatId!);
   const username = useUsername();
 
   if (!username) {

@@ -1,19 +1,23 @@
 import { Form } from "react-bootstrap";
 import { useState } from "react";
-import { useChat } from "../hooks/useChat";
-import { usePanteraResponse } from "../hooks/usePantera";
-import panteraLogo from '../assets/furia-logo.jpg'
 import avatar from '../assets/avatar.jpg'
-import { useUsername } from "../hooks/useUsername";
+import panteraLogo from '../assets/furia-logo.jpg'
+import { Message } from "../types";
+import { usePanteraResponse } from "../hooks/usePantera";
 import './chat.css'
 
-export default function Chat() {
-  const { messages, sendMessage, endRef, removeMessage } = useChat();
+interface ChatProps {
+  messages: Message[];
+  sendMessage: (content: string, sender?: string) => Promise<void>;
+  removeMessage: (id: string) => Promise<void>;
+  endRef: React.RefObject<HTMLDivElement | null>;
+  username: string;
+}
+
+export default function Chat({ messages, sendMessage, removeMessage, endRef, username }: ChatProps) {
   const [input, setInput] = useState("");
   const [deletingIds, setDeletingIds] = useState<string[]>([]);
-
   const { response: getPanteraResponse } = usePanteraResponse();
-  const username = useUsername();
 
   if (!username) {
     return null;
@@ -23,10 +27,10 @@ export default function Chat() {
     e.preventDefault();
     const trimmed = input.trim();
     if (!trimmed) return;
-  
+
     await sendMessage(trimmed, username);
     setInput("");
-  
+
     if (trimmed.toLowerCase().startsWith("pantera,")) {
       const panteraReply = await getPanteraResponse(trimmed);
       await sendMessage(panteraReply, "Pantera");
@@ -36,19 +40,16 @@ export default function Chat() {
   const handleDeleteMessage = async (id: string) => {
     const confirmed = window.confirm("Tem certeza que quer excluir esta mensagem?");
     if (!confirmed) return;
-  
-    setDeletingIds(prev => [...prev, id]); // adiciona o id para animar o fade-out
-  
+
+    setDeletingIds(prev => [...prev, id]);
     setTimeout(async () => {
-      await removeMessage(id); // apaga do Supabase
-      setDeletingIds(prev => prev.filter(msgId => msgId !== id)); // tira o id da lista
-    }, 500); // tempo para o fade-out rodar (meio segundo)
+      await removeMessage(id);
+      setDeletingIds(prev => prev.filter(msgId => msgId !== id));
+    }, 500);
   };
   
   return (
-    <div className="d-flex flex-column w-100 overflow-hidden" style={{ backgroundColor: "#f8f9fa",height: "calc(100vh - 74px)" }}>
-
-      {/* Mensagens */}
+    <div className="d-flex flex-column w-100 overflow-hidden" style={{ backgroundColor: "#f8f9fa", height: "calc(100vh - 74px)" }}>
       <div className="flex-grow-1 overflow-auto p-3" style={{ minHeight: 0 }}>
         {messages.map((msg) => {
           const isUser = msg.sender === username;
@@ -86,7 +87,6 @@ export default function Chat() {
                       />
                     )}
                   </div>
-
                   <div style={{ whiteSpace: "pre-wrap" }}>{msg.content}</div>
                 </div>
 
@@ -100,7 +100,6 @@ export default function Chat() {
         <div ref={endRef} />
       </div>
 
-      {/* Input */}
       <Form
         className="d-flex gap-2 flex-sm-row flex-sm-row align-items-center p-3 border-top"
         onSubmit={handleSubmit}
