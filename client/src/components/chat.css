@@ -6,3 +6,31 @@
   opacity: 0;
   transition: opacity 0.4s ease-out;
 }
+
+.chat-container {
+  background-color: #f8f9fa;
+  height: calc(100vh - 85px);
+}
+
+.messages-container {
+  min-height: 0;
+}
+
+.chat-bubble {
+  background-color: #212529;
+  border-radius: 1rem;
+  word-break: break-word;
+  min-width: 230px;
+}
+
+.chat-input {
+  background-color: #212529;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.send-button {
+  width: 40px;
+  height: 40px;
+  background-color: #212529;
+}

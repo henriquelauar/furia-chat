@@ -52,82 +52,46 @@ export default function Chat({ messages, sendMessage, removeMessage, endRef, use
   };
   
   return (
-    <div className="d-flex flex-column w-100 overflow-hidden" style={{ backgroundColor: "#f8f9fa", height: "calc(100vh - 85px)" }}>
-      <div className="flex-grow-1 overflow-auto p-3" style={{ minHeight: 0 }}>
+    <div className="d-flex flex-column w-100 overflow-hidden chat-container">
+      <div className="flex-grow-1 overflow-auto p-3 messages-container">
         {messages.map((msg) => {
           const isUser = msg.sender === username;
           const isBot = msg.sender === "Pantera";
 
           return (
-            <div
-              key={msg.id}
-              className={`mb-2 d-flex ${isUser ? "justify-content-end" : "justify-content-start"} ${deletingIds.includes(msg.id) ? "fade-out" : ""}`}
-            >
+            <div key={msg.id} className={`mb-2 d-flex ${isUser ? "justify-content-end" : "justify-content-start"} ${deletingIds.includes(msg.id) ? "fade-out" : ""}`}>
               <div className="d-flex align-items-center" style={{ maxWidth: "75%" }}>
-                {!isUser && isBot && (
-                  <img src={panteraLogo} alt={msg.sender} width="36" height="36" className="rounded-circle me-2" />
-                )}
-                {!isUser && !isBot && (
-                  <img src={avatar} alt={msg.sender} width="36" height="36" className="rounded-circle me-2" />
-                )}
-
-                <div
-                  className="p-3 rounded shadow-sm text-white"
-                  style={{
-                    backgroundColor: "#000000d4",
-                    borderRadius: "1rem",
-                    wordBreak: "break-word",
-                    minWidth: '230px'
-                  }}
-                >
-                  <div className="d-flex justify-content-between mb-2">
-                    <small className="d-block fw-bold text-uppercase mb-1">{msg.sender}</small>
-                    {isUser && (
-                      <i
-                        className="bi bi-trash text-danger"
-                        role="button"
-                        onClick={() => handleDeleteMessage(msg.id)}
-                      />
-                    )}
+                <div className="p-3 rounded shadow-sm text-white chat-bubble">
+                  <div className="d-flex align-items-center mb-3">
+                    {/* Avatar logo usuário chat */}
+                    {!isUser && !isBot && ( <img src={avatar} alt={msg.sender} width="30" height="30" className="rounded-circle me-2" />)}
+                    {/* Pantera Logo */}
+                    {!isUser && isBot && ( <img src={panteraLogo} alt={msg.sender} width="30" height="30" className="rounded-circle me-2" /> )}
+                      <div className="d-flex align-items-center column w-100">
+                        {/* Avatar Logo usuário logado */}
+                        {isUser && ( <img src={avatar} alt={msg.sender} width="30" height="30" className="rounded-circle me-2" /> )}
+                        <small className="d-block fw-bold text-uppercase">{msg.sender}</small>
+                      </div>
+                  {isUser && ( <i className="bi bi-trash text-danger" role="button" onClick={() => handleDeleteMessage(msg.id)}/> )}
                   </div>
-                  <div style={{ whiteSpace: "pre-wrap" }}>{msg.content}</div>
-                </div>
-
-                {isUser && (
-                  <img src={avatar} alt={msg.sender} width="36" height="36" className="rounded-circle ms-2" />
-                )}
+                <div style={{ whiteSpace: "pre-wrap" }}>{msg.content}</div>
               </div>
             </div>
-          );
-        })}
-        <div ref={endRef} />
-      </div>
+          </div>
+        );
+      })}
+      <div ref={endRef} />
+    </div>
 
-      <Form
-        className="d-flex gap-2 flex-sm-row flex-sm-row align-items-center p-3 border-top"
-        onSubmit={handleSubmit}
-      >
+      <Form className="d-flex gap-2 flex-sm-row flex-sm-row align-items-center p-3 border-top" onSubmit={handleSubmit} >
         <Form.Control
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Digite sua mensagem..."
           className="text-white flex-grow-1 chat-input"
-          style={{
-            backgroundColor: "#000000d4",
-            fontSize: "0.9rem",
-            padding: "0.5rem 0.75rem",
-          }}
         />
-        <button
-          type="submit"
-          className="btn d-flex align-items-center justify-content-center"
-          style={{
-            backgroundColor: "#000000d4",
-            width: "42px",
-            height: "42px",
-          }}
-        >
+        <button type="submit" className="btn d-flex align-items-center justify-content-center send-button">
           <i className="ri-send-plane-fill text-white" />
         </button>
       </Form>
