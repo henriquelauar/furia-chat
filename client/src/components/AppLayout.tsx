@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Sidebar } from "../components/Sidebar";
+import { MobileSidebar } from "./MobileSidebar";
 import Header from "../components/Header";
 
 export default function Layout ({ children }: { children: ReactNode }) {
@@ -8,6 +9,7 @@ export default function Layout ({ children }: { children: ReactNode }) {
       <Header />
       <div className="d-flex flex-grow-1 flex-column flex-md-row">
         <Sidebar />
+        <MobileSidebar />
         <main className="flex-grow-1">
           {children}
         </main>

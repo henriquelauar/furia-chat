@@ -9,9 +9,10 @@ export const PrivateChatList: FC = () => {
   const [users, setUsers] = useState<Profile[]>([]);
   const [chats, setChats] = useState<PrivateChat[]>([]);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true); // Novo: controle de loading
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Carrega os chats privados do usuário logado
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -41,6 +42,7 @@ export const PrivateChatList: FC = () => {
     fetchData();
   }, []);
 
+  // Verifica se existe um chat entre os usuários  
   const findChatWithUser = (userId: string) => {
     return chats.find(chat =>
       (chat.user1_id === currentUserId && chat.user2_id === userId) ||
@@ -48,6 +50,7 @@ export const PrivateChatList: FC = () => {
     );
   };
 
+  // Cria um novo chat privado
   const handleNewChat = async (user2Id: string) => {
     try {
       const chat = await privateChatService.createPrivateChat(user2Id);

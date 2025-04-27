@@ -4,8 +4,10 @@ import { PrivateChatList } from "./PrivateChatList";
 import { useUsername } from "../hooks/useUsername";
 
 export const MobileSidebar: FC = () => {
+  // Pega o username para colocar no header  
   const username = useUsername();
 
+  // Faz o logout do usuário
   const handleLogout = async () => {
     const confirmed = window.confirm("Tem certeza que deseja sair?");
     if (!confirmed) return;
@@ -67,7 +69,7 @@ export const MobileSidebar: FC = () => {
           <PrivateChatList />
         </div>
 
-        {/* Redes Sociais */}
+        {/* SOCIAL MEDIA */}
         <div className="mt-auto text-center">
           <h6 className="fw-light mb-3 text-uppercase text-black">
             Acompanhe

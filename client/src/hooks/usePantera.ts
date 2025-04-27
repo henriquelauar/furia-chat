@@ -3,6 +3,7 @@ import { useCallback } from "react";
 
 const apiKey = import.meta.env.VITE_OPENAI_API;
 
+// Hook para chamar a IA
 export function usePanteraResponse() {
   const response = useCallback(async (message: string): Promise<string> => {
     try {
@@ -14,7 +15,7 @@ export function usePanteraResponse() {
             {
               role: "system",
               content:
-                "Você é Pantera, a mascote oficial da FURIA Esports. Os fãs vão te fazer perguntas relacionas ao time de Counter Strike da Fúria",
+                "Você é Pantera, a mascote oficial da FURIA Esports. Os fãs vão te fazer perguntas relacionadas ao time de Counter Strike da Fúria",
             },
             {
               role: "user",

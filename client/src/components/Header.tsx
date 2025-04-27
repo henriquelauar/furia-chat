@@ -1,13 +1,13 @@
 import logo from '../assets/logo-furia.svg';
 import { Link } from 'react-router-dom';
-import { MobileSidebar } from './MobileSidebar'; // importa aqui
+import { MobileSidebar } from './MobileSidebar';
 
 const Header = () => {
   return (
     <>
       <header className="w-100 px-3 px-md-4 py-3 d-flex align-items-center justify-content-between position-sticky top-0 bg-white shadow-sm border" style={{ zIndex: 1050 }}>
         
-        {/* Botão hamburguer (aparece só no mobile) */}
+        {/* botão menu mobile */}
         <div className="d-flex align-items-center gap-2">
           <button
             className="btn d-md-none p-2"
@@ -31,7 +31,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Botões acessórios (Desktop) */}
+        {/* Botões guias */}
         <div className="d-flex align-items-center gap-4 flex-wrap">
           <Link to="/chat">
             <i className="bi bi-chat text-black fs-5"></i>

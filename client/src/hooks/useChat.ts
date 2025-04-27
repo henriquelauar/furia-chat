@@ -6,6 +6,7 @@ export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const endRef = useRef<HTMLDivElement>(null);
 
+  // Atualiza as mensagens em tempo real
   useEffect(() => {
     fetchMessages();
     const subscription = supabase
@@ -28,6 +29,7 @@ export function useChat() {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Carrega as mensagens
   const fetchMessages = async () => {
     const { data, error } = await supabase
       .from("messages")
@@ -37,6 +39,7 @@ export function useChat() {
     if (!error && data) setMessages(data as Message[]);
   };
 
+  // Envia a mensagem para a tabela de mensagens
   const sendMessage = async (content: string, sender = "Você") => {
     const { error } = await supabase.from("messages").insert([
       {
@@ -50,6 +53,7 @@ export function useChat() {
     }
   };
 
+  // Remove a mensagem da tabela mensagens
   async function removeMessage(id: string) {
     try {
       const { error } = await supabase

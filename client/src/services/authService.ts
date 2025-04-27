@@ -47,6 +47,7 @@ export async function signIn(email: string, password: string) {
 
 export async function logout() {
   const { error } = await supabase.auth.signOut();
+  localStorage.removeItem('furia-username')
   if (error) {
     throw new Error(error.message);
   }

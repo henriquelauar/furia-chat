@@ -23,6 +23,7 @@ export default function Chat({ messages, sendMessage, removeMessage, endRef, use
     return null;
   }
 
+  // Trata e envia as mensagens para o supabase, gera a resposta da IA.
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = input.trim();
@@ -37,10 +38,12 @@ export default function Chat({ messages, sendMessage, removeMessage, endRef, use
     }
   };
 
+  // Deleta a mensagem selecionada
   const handleDeleteMessage = async (id: string) => {
     const confirmed = window.confirm("Tem certeza que quer excluir esta mensagem?");
     if (!confirmed) return;
 
+    // Remove o id do estado local
     setDeletingIds(prev => [...prev, id]);
     setTimeout(async () => {
       await removeMessage(id);
@@ -49,7 +52,7 @@ export default function Chat({ messages, sendMessage, removeMessage, endRef, use
   };
   
   return (
-    <div className="d-flex flex-column w-100 overflow-hidden" style={{ backgroundColor: "#f8f9fa", height: "calc(100vh - 74px)" }}>
+    <div className="d-flex flex-column w-100 overflow-hidden" style={{ backgroundColor: "#f8f9fa", height: "calc(100vh - 85px)" }}>
       <div className="flex-grow-1 overflow-auto p-3" style={{ minHeight: 0 }}>
         {messages.map((msg) => {
           const isUser = msg.sender === username;
