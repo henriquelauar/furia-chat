@@ -32,7 +32,7 @@ export default function Chat({ messages, sendMessage, removeMessage, endRef, use
     await sendMessage(trimmed, username);
     setInput("");
 
-    if (trimmed.toLowerCase().startsWith("pantera,")) {
+    if (trimmed.toLowerCase().startsWith("pantera")) {
       const panteraReply = await getPanteraResponse(trimmed);
       await sendMessage(panteraReply, "Pantera");
     }
@@ -89,7 +89,7 @@ export default function Chat({ messages, sendMessage, removeMessage, endRef, use
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Digite sua mensagem..."
-          className="text-white flex-grow-1 chat-input"
+          className="text-dark flex-grow-1 chat-input"
         />
         <button type="submit" className="btn d-flex align-items-center justify-content-center send-button">
           <i className="ri-send-plane-fill text-white" />

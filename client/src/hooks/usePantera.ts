@@ -10,7 +10,7 @@ export function usePanteraResponse() {
       const res = await axios.post(
         "https://openrouter.ai/api/v1/chat/completions",
         {
-          model: "openai/gpt-3.5-turbo",
+          model: "openai/gpt-3.5-turbo-0125",
           messages: [
             {
               role: "system",

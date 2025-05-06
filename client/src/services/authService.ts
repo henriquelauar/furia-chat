@@ -1,4 +1,3 @@
-// src/services/authService.ts
 import { supabase } from '../supabase/supabaseClient';
 
 export async function signUp(email: string, password: string, username: string) {
